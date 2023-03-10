@@ -36,7 +36,16 @@ export default class Player {
         this.position.x += this.speed
     }
     stop() {
-        this.speed = 0
+            this.speed = 0
+        }
+        /**
+         * @param {number} x
+         */
+    set xdir(x) {
+        this.position.x = x
     }
+    get xdir() { return this.position.x }
+    get WIDTH() { return this.width }
+    get HEIGHT() { return this.height }
 
 }

@@ -101,13 +101,13 @@ export default class Game {
     draw = (ctx) => {
 
         ctx.font = '30px Arial';
-        ctx.fillStyle = "red"
+        ctx.fillStyle = "white"
         ctx.beginPath()
-        ctx.fillText("Scores : " + this.counter, (this.gamewidth / 2), 20);
+        ctx.fillText("Scores : " + this.counter, 100, 20);
         ctx.font = '30px Arial';
-        ctx.fillStyle = "red"
-        ctx.beginPath()
-        ctx.fillText("lives : " + this.lives, (this.gamewidth * 0.25), 20);
+        // ctx.fillStyle = "red"
+        // ctx.beginPath()
+        ctx.fillText("lives : " + this.lives, 105, 50);
         // console.log(this.gameObject.filter((object) => {
         //     if (object.markForDeletion != true) return object
 

@@ -1,8 +1,14 @@
+const cvs = gI("canvas")
+
+// console.log("left", left);
 export default class Input {
     constructor(player, gamestate) {
         this.gamewidth = gamestate.gamewidth
+        this.gameHeight = gamestate.gameheight
         this.leftSideOfGame = this.gamewidth * 0.25
         this.rightSideOfGame = this.gamewidth * 0.75
+        this.mousedown = false
+        this.position = null
         this.movePlayer = event => {
             const { type, keyCode, touches } = event
             if (type == "keydown") {
@@ -16,8 +22,20 @@ export default class Input {
                 return
             }
             if (type == "touchstart") {
-                console.log("enter here");
                 const touchstart = touches[0].clientX
+                const { clientY } = touches[0]
+                console.log(
+                    touchstart,
+                    player.xdir + player.WIDTH,
+                    (player.xdir + player.WIDTH) >= touchstart, this.gameHeight - player.HEIGHT
+                )
+                if (touchstart >= player.xdir &&
+                    (player.xdir + player.WIDTH) >= touchstart && (this.gameHeight - player.HEIGHT) <= clientY) {
+                    console.log("enter here hahah")
+                    this.mousedown = true
+
+                }
+                return
                 if (touchstart <= this.leftSideOfGame) {
                     player.move(-1)
                     return
@@ -26,7 +44,12 @@ export default class Input {
                     player.move(1)
                     return
                 }
-                return
+            }
+            if (type == "touchmove") {
+                if (this.mousedown) {
+                    player.xdir = event.touches[0].clientX
+                }
+
             }
             if (type == "keyup") {
                 // code here
@@ -46,6 +69,8 @@ export default class Input {
                 return
             }
             if (type == "touchend") {
+                this.mousedown = false
+                return
                 if (player.speed > 0) player.stop()
                 if (player.speed < 0) player.stop()
                 return
@@ -54,12 +79,13 @@ export default class Input {
         }
 
 
-        document.addEventListener("keydown", this.movePlayer)
-        document.addEventListener("keyup", this.movePlayer)
+        cvs.addEventListener("keydown", this.movePlayer)
+        cvs.addEventListener("keyup", this.movePlayer)
 
 
-        document.addEventListener("touchstart", this.movePlayer)
-        document.addEventListener("touchend", this.movePlayer)
+        cvs.addEventListener("touchstart", this.movePlayer)
+        cvs.addEventListener("touchmove", this.movePlayer)
+        cvs.addEventListener("touchend", this.movePlayer)
     }
 
 }

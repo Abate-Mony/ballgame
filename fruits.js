@@ -48,7 +48,7 @@ export default class Fruit {
                 }, 100);
 
             } else {
-                this.markForDeletion = true
+                // this.markForDeletion = true
                 this.game.player.maxSpeed = 0
                 this.game.havehit = true
                 this.timer = setTimeout(() => {
